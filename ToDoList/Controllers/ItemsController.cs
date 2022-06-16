@@ -39,5 +39,15 @@ namespace ToDoList.Controllers
       Item.ClearAll();
       return View();
     }
+
+    [HttpGet("/categories/{categoryId}/items/{itemId}")]
+    public ActionResult Show(int categoryId);
+    {
+    Dictionary<string, object> myDictionary = new Dictionary<string, object>();
+    myDictionary.Add("item", item);
+    myDictionary.Add("category", category);
+    return View(myDictionary);
+    }
+    
   }
 }
