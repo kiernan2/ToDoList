@@ -5,7 +5,7 @@ using ToDoList.Models;
 
 namespace ToDoList.Controllers
 {
-  public class CategoryController : Controller
+  public class CategoriesController : Controller
   {
 
     [HttpGet("/categories")]
@@ -26,6 +26,22 @@ namespace ToDoList.Controllers
     {
       Category newCategory = new Category(categoryName);
       return RedirectToAction("Index");
+    }
+
+    [HttpGet("/categories/{id}")]
+    public ActionResult Show(int id)
+    {
+      Category selectedCategory = Category.Find(id);
+      return View(selectedCategory);
+    }
+
+    [HttpPost("/categories/{categoryId}/items")]
+    public ActionResult Create(int categoryId, string itemDescription)
+    {
+      Category foundCategory = Category.Find(categoryId);
+      Item newItem = new Item(itemDescription);
+      foundCategory.AddItem(newItem);
+      return View("Show", foundCategory);
     }
   }
 }
