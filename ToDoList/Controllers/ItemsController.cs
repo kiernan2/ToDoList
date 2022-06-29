@@ -31,6 +31,5 @@ namespace ToDoList.Controllers
       myDictionary.Add("category", category);
       return View(myDictionary);
     }
-    
   }
 }
