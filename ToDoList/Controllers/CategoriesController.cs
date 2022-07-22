@@ -35,7 +35,6 @@ namespace ToDoList.Controllers
       return View(selectedCategory);
     }
 
-
     [HttpPost("/categories/{categoryId}/items")]
     public ActionResult Create(int categoryId, string itemDescription)
     {

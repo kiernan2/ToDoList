@@ -9,7 +9,7 @@ namespace ToDoList.Models
     public int Id { get; }
     public List<Item> Items { get; set; }
   
-      public Category(string categoryName)
+    public Category(string categoryName)
     {
       Name = categoryName;
       _instances.Add(this);

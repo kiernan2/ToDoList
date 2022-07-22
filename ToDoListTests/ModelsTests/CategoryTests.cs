@@ -42,6 +42,7 @@ namespace ToDoList.TestTools
       CollectionAssert.AreEqual(newList, result);
     }
 
+    [TestMethod]
     public void Find_ReturnsCorrectCategory_Category()
     {
       string name01 = "Work";
