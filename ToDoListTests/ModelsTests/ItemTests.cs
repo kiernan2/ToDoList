@@ -72,14 +72,17 @@ namespace ToDoList.TestTools
     //   }
     // CollectionAssert.AreEqual(newList, result);
     // }
-    // [TestMethod]
-    // public void GetId_ItemsInstantiateWithAnIdAndGetterReturns_Int()
-    // {
-    //   string description = "Walk the dog.";
-    //   Item newItem = new Item(description);
-    //   int result = newItem.Id;
-    //   Assert.AreEqual(1, result);
-    // }
+    
+    [TestMethod]
+    public void GetId_ItemsInstantiateWithAnIdAndGetterReturns_Int()
+    {
+      string description = "Walk the dog.";
+      Item newItem = new Item(description);
+      newItem.Save();
+      Item foundItem = Item.Find(newItem.Id);
+      Assert.AreEqual(foundItem.Id, newItem.Id);
+    }
+
     // [TestMethod]
     // public void SetDescription_SetDescription_String()
     // {
@@ -100,20 +103,37 @@ namespace ToDoList.TestTools
     //   Item result = Item.Find(2);
     //   Assert.AreEqual(newItem2, result);
     // }
-    // [TestMethod]
-    // public void GetAll_Returns_ItemList()
-    // {
-    //   string description01 = "Walk the dog";
-    //   string description02 = "Wash the dishes";
-    //   Item newItem1 = new Item(description01);
-    //   Item newItem2 = new Item(description02);
-    //   List<Item> newList = new List<Item> { newItem1, newItem2 };
-    //   List<Item> result = Item.GetAll();
-    //   foreach (Item thisItem in result)
-    //   {
-    //     Console.WriteLine("Output from second GetAll test: " + thisItem.Description);
-    //   }
-    //   CollectionAssert.AreEqual(newList, result);
-    // }
+
+    [TestMethod]
+    public void GetAll_Returns_ItemList()
+    {
+      string description01 = "Walk the dog";
+      string description02 = "Wash the dishes";
+      Item newItem1 = new Item(description01);
+      newItem1.Save();
+      Item newItem2 = new Item(description02);
+      newItem2.Save();
+      List<Item> newList = new List<Item> { newItem1, newItem2 };
+      List<Item> result = Item.GetAll();
+      // foreach (Item thisItem in result)
+      // {
+      //   Console.WriteLine("Output from second GetAll test: " + thisItem.Description);
+      // }
+      CollectionAssert.AreEqual(newList, result);
+    }
+
+    [TestMethod]
+    public void Find_ReturnsCorrectItemFromDatabase_Item()
+    {
+      Item newItem1 = new Item("Mow the lawn");
+      newItem1.Save();
+      Item newItem2 = new Item("Wash dishes");
+      newItem2.Save();
+
+      Item foundItem = Item.Find(newItem1.Id);
+      Assert.AreEqual(newItem1, foundItem);
+    }
+
+
   }
 }
