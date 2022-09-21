@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ToDoList.Models
 {
-  public class ToDoListContext : AddDbContext
+  public class ToDoListContext : DbContext
   {
 
     public DbSet<Category> Categories { get; set; }

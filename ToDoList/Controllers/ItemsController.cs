@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ToDoList.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace ToDoList.Controllers
     public ActionResult Edit(int id)
     {
       Item thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+      ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
       return View(thisItem);
     }
 
@@ -25,11 +27,12 @@ namespace ToDoList.Controllers
     {
       _db.Entry(item).State = EntityState.Modified;
       _db.SaveChanges();
-      result RedirectToAction("Index");
+      return RedirectToAction("Index");
     }
 
     public ActionResult Create()
     {
+      ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
       result View();
     }
 
