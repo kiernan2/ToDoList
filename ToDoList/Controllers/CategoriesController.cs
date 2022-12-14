@@ -23,10 +23,10 @@ namespace ToDoList.Controllers
 
     public ActionResult Details(int id)
     {
-      Category thisCategory = _db.Categories;
+      Category thisCategory = _db.Categories
         .Include(category => category.JoinEntities)
           .ThenInclude(join => join.Item)
-        .FirstOrDefault(category => category.CategoryId == id)
+        .FirstOrDefault(category => category.CategoryId == id);
       return View(thisCategory);
     }
 
@@ -71,5 +71,5 @@ namespace ToDoList.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
     }
-    }
+  }
 }

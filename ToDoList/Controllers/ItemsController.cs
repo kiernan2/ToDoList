@@ -18,7 +18,7 @@ namespace ToDoList.Controllers
 
     public ActionResult Index()
     {
-      return View(_db.Items.ToList())
+      return View(_db.Items.ToList());
     }
 
     public ActionResult Details(int id)
@@ -26,7 +26,7 @@ namespace ToDoList.Controllers
       Item thisItem = _db.Items
         .Include(item => item.JoinEntities)
           .ThenInclude(join => join.Category)
-        .FirstOrDefault(Item => item.ItemId == id);
+        .FirstOrDefault(item => item.ItemId == id);
       return View(thisItem);
     }
 
@@ -41,7 +41,7 @@ namespace ToDoList.Controllers
     {
       _db.Items.Add(item);
       _db.SaveChanges();
-      if (Category != 0)
+      if (categoryId != 0)
       {
         _db.CategoriesItems.Add(new CategoryItem() { CategoryId = categoryId, ItemId = item.ItemId});
         _db.SaveChanges();
@@ -59,8 +59,8 @@ namespace ToDoList.Controllers
     [HttpPost]
     public ActionResult Edit(Item item, int categoryId)
     {
-      bool duplicate = _db.CategoriesItems.Any(join =>
-      join.CategoryItem == categoryId && join.ItemId == item.ItemId);
+      bool duplicate = _db.CategoriesItems.Any(catItem =>
+      catItem.CategoryId == categoryId && catItem.ItemId == item.ItemId);
 
       if (categoryId != 0 && !duplicate)
       {
